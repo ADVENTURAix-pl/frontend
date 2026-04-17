@@ -10,8 +10,36 @@ html, body {
   overflow-x: clip;
 }
 
+/* ── Hide scrollbar globally (all browsers) ── */
+html {
+  scrollbar-width: none;          /* Firefox */
+  -ms-overflow-style: none;       /* IE / Edge (legacy) */
+}
+html::-webkit-scrollbar {
+  display: none;                  /* Chrome, Safari, Opera */
+}
+
 /* Lenis requires html height to be auto (not 100%) */
 html.lenis,
 html.lenis body {
   height: auto;
+}
+
+/* ── Beach scroll card — responsive padding & radius ── */
+.beach-section {
+  padding-left: clamp(16px, 3vw, 40px);
+  padding-right: clamp(16px, 3vw, 40px);
+}
+.beach-card {
+  border-radius: 24px;
+}
+
+@media (max-width: 640px) {
+  .beach-section {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .beach-card {
+    border-radius: 0;
+  }
 }

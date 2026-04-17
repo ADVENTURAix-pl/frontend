@@ -6,8 +6,6 @@ import { useLenis } from "../providers/LenisProvider";
 const FRAME_COUNT = 150;
 const PX_PER_FRAME = 28;
 const NAVBAR_H = 72;
-const INSET = 0;   // no gap — image fills edge-to-edge
-const RADIUS = 24;
 
 function frameSrc(n: number) {
   return `/Beach-frames/ezgif-frame-${String(n).padStart(3, "0")}.jpg`;
@@ -89,25 +87,26 @@ export function BeachScrollVideo() {
   }, [lenis]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const sectionH = `calc(100vh + ${FRAME_COUNT * PX_PER_FRAME}px)`;
-  const cardH = `calc(100vh - ${NAVBAR_H + INSET * 2}px)`;
+  const cardH = `calc(100vh - ${NAVBAR_H}px)`;
 
   return (
     <div
       ref={containerRef}
+      className="beach-section"
       style={{
         height: sectionH,
         position: "relative",
-        background: "#F3F4F2",  // matches page background — no dark stage
+        background: "#F3F4F2",
         boxSizing: "border-box",
       }}
     >
       {/* Sticky toast-bread card */}
       <div
+        className="beach-card"
         style={{
           position: "sticky",
-          top: NAVBAR_H + INSET,
+          top: NAVBAR_H,
           height: cardH,
-          borderRadius: RADIUS,
           overflow: "hidden",
           boxShadow: "0 12px 60px rgba(0,0,0,0.22), 0 2px 8px rgba(0,0,0,0.12)",
           willChange: "transform",
