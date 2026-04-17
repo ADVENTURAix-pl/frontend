@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
+import { LenisProvider } from "./providers/LenisProvider";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -19,7 +20,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${geistSans.variable}`}>
-      <body style={{ margin: 0, padding: 0 }}>{children}</body>
+      <body style={{ margin: 0, padding: 0 }}>
+        <LenisProvider>{children}</LenisProvider>
+      </body>
     </html>
   );
 }

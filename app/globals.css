@@ -5,6 +5,13 @@
 html, body {
   margin: 0;
   padding: 0;
-  height: 100%;
-  overflow-x: hidden;
+  /* clip = no horizontal scrollbar, but unlike hidden it does NOT create a
+     new scroll container — so position:sticky children keep working */
+  overflow-x: clip;
+}
+
+/* Lenis requires html height to be auto (not 100%) */
+html.lenis,
+html.lenis body {
+  height: auto;
 }
