@@ -1,13 +1,13 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { useLenis } from "../providers/LenisProvider";
 
 const FRAME_COUNT = 150;
-const PX_PER_FRAME = 28; // scroll distance per frame — 150 × 28 = 4200px total travel
+const PX_PER_FRAME = 28;
 const NAVBAR_H = 72;
-const INSET = 20; // gap from viewport edges (toast-bread gap)
-const RADIUS = 24; // border-radius
+const INSET = 0;   // no gap — image fills edge-to-edge
+const RADIUS = 24;
 
 function frameSrc(n: number) {
   return `/Beach-frames/ezgif-frame-${String(n).padStart(3, "0")}.jpg`;
@@ -97,9 +97,7 @@ export function BeachScrollVideo() {
       style={{
         height: sectionH,
         position: "relative",
-        // Dark stage frames the rounded card — this IS the background, not blank white
-        background: "#0d0d0e",
-        padding: `${INSET}px`,
+        background: "#F3F4F2",  // matches page background — no dark stage
         boxSizing: "border-box",
       }}
     >
@@ -128,6 +126,7 @@ export function BeachScrollVideo() {
             objectFit: "cover",
             display: "block",
             userSelect: "none",
+            imageRendering: "high-quality" as React.CSSProperties["imageRendering"],
           }}
         />
 

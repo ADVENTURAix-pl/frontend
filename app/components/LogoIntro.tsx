@@ -6,6 +6,7 @@ import { LogoAnimationComposition, TOTAL_FRAMES } from "./LogoAnimation";
 
 const FPS = 60;
 const BRAND = "#565F59";
+const NAVBAR_H = 72;
 
 export function LogoIntro({ onComplete }: { onComplete?: () => void }) {
   const playerRef = useRef<PlayerRef>(null);
@@ -24,21 +25,21 @@ export function LogoIntro({ onComplete }: { onComplete?: () => void }) {
     const el = wipePanelRef.current;
     if (!el) return;
 
-    // Ensure element is painted at the "fully visible" start state
+    // Start fully covering (clipped from right = fully visible)
     el.style.transition = "none";
-    el.style.clipPath = "inset(0 100% 0 0%)";
+    el.style.clipPath = "inset(0 0% 0 0%)";
 
     // Double-RAF: guarantees two browser paint cycles before animating
     const raf1 = requestAnimationFrame(() => {
       requestAnimationFrame(() => {
-        el.style.transition =
-          "clip-path 0.85s cubic-bezier(0.87, 0, 0.13, 1)";
+        // Wipe left-to-right: expand the left inset until the panel vanishes
+        el.style.transition = "clip-path 0.9s cubic-bezier(0.87, 0, 0.13, 1)";
         el.style.clipPath = "inset(0 0% 0 100%)";
       });
     });
 
     // Unmount after animation completes
-    const timer = setTimeout(() => setDone(true), 1050);
+    const timer = setTimeout(() => setDone(true), 1100);
 
     return () => {
       cancelAnimationFrame(raf1);
@@ -46,7 +47,7 @@ export function LogoIntro({ onComplete }: { onComplete?: () => void }) {
     };
   }, [wiping]);
 
-  // Frame listener + 7s fallback
+  // Frame listener + fallback
   useEffect(() => {
     const player = playerRef.current;
     if (!player || !vp) return;
@@ -57,11 +58,12 @@ export function LogoIntro({ onComplete }: { onComplete?: () => void }) {
       setWiping(true);  // kick off the wipe
     };
 
+    // Fire when the Remotion expand animation is done (frame >= TOTAL_FRAMES - 2)
     const handleFrame = (e: { detail: { frame: number } }) => {
-      if (e.detail.frame >= 248) complete();
+      if (e.detail.frame >= TOTAL_FRAMES - 2) complete();
     };
 
-    const fallback = setTimeout(complete, 7000);
+    const fallback = setTimeout(complete, (TOTAL_FRAMES / FPS) * 1000 + 500);
     player.addEventListener("frameupdate", handleFrame as any);
 
     return () => {
@@ -110,16 +112,20 @@ export function LogoIntro({ onComplete }: { onComplete?: () => void }) {
         </div>
       )}
 
-      {/* ── Phase 2: Wipe panel — sits UNDER the navbar (z-index 50 < navbar 100) ── *
-       *  clip-path animates from fully visible → fully clipped left-to-right,         *
-       *  so the real page is unveiled pixel-by-pixel behind it.                       */}
+      {/* ── Phase 2: Wipe panel — BELOW the navbar (z-index 50 < navbar 100) ──
+       *  Covers only the content area beneath the navbar.
+       *  clip-path animates from fully visible → fully clipped left-to-right,
+       *  so the real page content is unveiled pixel-by-pixel behind it.        */}
       {wiping && (
         <div
           ref={wipePanelRef}
           style={{
             position: "fixed",
-            inset: 0,
-            zIndex: 50,
+            top: NAVBAR_H,    // ← sits BELOW the navbar
+            left: 0,
+            right: 0,
+            bottom: 0,
+            zIndex: 50,       // ← behind navbar (navbar is z-index 100)
             background: BRAND,
             pointerEvents: "none",
           }}

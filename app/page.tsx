@@ -41,8 +41,6 @@ export default function Home() {
           position: "relative",
           zIndex: 10,
           background: BG,
-          opacity: introComplete ? 1 : 0,
-          transition: "opacity 0.8s ease-out",
           paddingTop: 72, // navbar height
           marginBottom: FOOTER_HEIGHT, // transparent gap (margins have no bg) reveals footer at page end
         }}

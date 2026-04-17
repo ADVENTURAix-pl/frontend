@@ -23,8 +23,7 @@ export function Navbar({ visible = true }: NavbarProps) {
         borderBottom: "1px solid rgba(86,95,89,0.12)",
         zIndex: 100,
         opacity: visible ? 1 : 0,
-        // No transition here: the LogoIntro overlay's fade handles the reveal.
-        // This makes the transition feel like it's "coming from the video".
+        transition: "opacity 0.3s ease-out",
       }}
     >
       <AdventuraLogo starSize={32} textSize={16} />
