@@ -67,9 +67,6 @@ export default function Home() {
       {/* Floating pill nav with tabs */}
       <SiteNav activeTab={activeTab} onTab={handleTab} visible={introComplete} />
 
-      {/* Fixed footer — revealed as content scrolls away */}
-      <Footer />
-
       {/* Main content */}
       <main
         className="relative z-10 bg-[#F3F4F2] transition-opacity duration-800 mb-0 lg:mb-[380px]"
@@ -170,6 +167,9 @@ export default function Home() {
           </div>
         )}
       </main>
+
+      {/* Fixed footer — revealed as content scrolls away on desktop, static on mobile */}
+      <Footer />
 
       {/* AI Chat widget — always on after intro */}
       {introComplete && <AIChatWidget />}
