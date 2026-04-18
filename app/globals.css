@@ -1,45 +1,162 @@
-*, *::before, *::after {
-  box-sizing: border-box;
+@import "tailwindcss";
+
+/* ── Reset ──────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+/* overflow-x: clip does NOT create a scroll container (unlike hidden) so sticky still works */
+html { overflow-x: clip; }
+
+/* ── ADVENTURAIX Design Tokens ──────────────────────────────────────────── */
+:root {
+  /* Brand anchors */
+  --adx-sage:         #565F59;
+  --adx-sage-deep:    #3D4540;
+  --adx-sage-soft:    #7A837D;
+  --adx-paper:        #F3F4F2;
+  --adx-paper-warm:   #ECEAE3;
+  --adx-bone:         #E4E2DA;
+  --adx-chalk:        #FAFAF8;
+  --adx-ink:          #1F2421;
+
+  /* Accent — warm clay */
+  --adx-clay:         #B8896A;
+  --adx-clay-soft:    #D9B89C;
+  --adx-clay-deep:    #8F6749;
+
+  /* Editorial — dusty bottle green */
+  --adx-moss:         #4A5A48;
+  --adx-moss-soft:    #8FA187;
+
+  /* Semantic */
+  --adx-ok:           #5F7A5A;
+  --adx-warn:         #C58F4A;
+  --adx-err:          #A85D4D;
+  --adx-info:         #5E7281;
+
+  /* Alpha scales */
+  --adx-ink-a04:  rgba(31,36,33,0.04);
+  --adx-ink-a08:  rgba(31,36,33,0.08);
+  --adx-ink-a12:  rgba(31,36,33,0.12);
+  --adx-ink-a24:  rgba(31,36,33,0.24);
+  --adx-ink-a48:  rgba(31,36,33,0.48);
+  --adx-ink-a72:  rgba(31,36,33,0.72);
+
+  --adx-sage-a06: rgba(86,95,89,0.06);
+  --adx-sage-a12: rgba(86,95,89,0.12);
+  --adx-sage-a24: rgba(86,95,89,0.24);
+  --adx-sage-a65: rgba(86,95,89,0.65);
+
+  /* Semantic tokens */
+  --bg:           var(--adx-paper);
+  --bg-raised:    var(--adx-chalk);
+  --bg-warm:      var(--adx-paper-warm);
+  --bg-inverse:   var(--adx-sage);
+
+  --fg:           var(--adx-sage);
+  --fg-strong:    var(--adx-ink);
+  --fg-muted:     var(--adx-sage-a65);
+  --fg-faint:     var(--adx-sage-soft);
+  --fg-on-dark:   var(--adx-paper);
+
+  --border:        var(--adx-sage-a12);
+  --border-strong: var(--adx-sage-a24);
+  --divider:       var(--adx-sage-a12);
+
+  --accent:       var(--adx-clay);
+  --accent-soft:  var(--adx-clay-soft);
+  --accent-deep:  var(--adx-clay-deep);
+
+  /* Typography */
+  --font-sans:  var(--font-geist-sans), "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-serif: "Instrument Serif", "Georgia", "Times New Roman", serif;
+  --font-mono:  ui-monospace, "SF Mono", "Geist Mono", monospace;
+
+  /* Display sizes */
+  --size-display-xl: clamp(3rem, 7vw, 5.5rem);
+  --size-display-l:  clamp(2.5rem, 5.5vw, 4rem);
+  --size-display-m:  2.5rem;
+
+  /* Heading sizes */
+  --size-h1: 2.25rem;
+  --size-h2: 1.75rem;
+  --size-h3: 1.25rem;
+  --size-h4: 1.0625rem;
+
+  --size-body:  1rem;
+  --size-small: 0.875rem;
+  --size-xs:    0.75rem;
+  --size-caps:  0.6875rem;
+
+  /* Line heights */
+  --lh-tight:   1.05;
+  --lh-snug:    1.2;
+  --lh-normal:  1.5;
+  --lh-relaxed: 1.65;
+
+  /* Tracking */
+  --track-tight:  -0.03em;
+  --track-snug:   -0.02em;
+  --track-normal: -0.005em;
+  --track-caps:   0.14em;
+
+  /* Weights */
+  --weight-light:   300;
+  --weight-regular: 400;
+  --weight-medium:  500;
+  --weight-semi:    600;
+
+  /* Spacing (4pt grid) */
+  --s-1:  4px;  --s-2:  8px;  --s-3:  12px; --s-4:  16px;
+  --s-5:  20px; --s-6:  24px; --s-8:  32px; --s-10: 40px;
+  --s-12: 48px; --s-16: 64px; --s-20: 80px; --s-24: 96px;
+
+  /* Radii */
+  --r-xs:   2px;  --r-sm:  6px;  --r-md:  10px;
+  --r-lg:   16px; --r-xl:  24px; --r-2xl: 32px; --r-pill: 999px;
+
+  /* Elevation */
+  --shadow-1: 0 1px 0 0 rgba(31,36,33,0.04);
+  --shadow-2: 0 1px 2px rgba(31,36,33,0.04), 0 2px 6px rgba(31,36,33,0.04);
+  --shadow-3: 0 2px 6px rgba(31,36,33,0.05), 0 12px 28px rgba(31,36,33,0.06);
+  --shadow-4: 0 8px 16px rgba(31,36,33,0.06), 0 30px 60px rgba(31,36,33,0.08);
+
+  /* Motion */
+  --ease-out:        cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-standard:   cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-emphasized: cubic-bezier(0.2, 0, 0, 1);
+  --dur-fast:   120ms;
+  --dur-base:   220ms;
+  --dur-slow:   420ms;
 }
 
+/* ── Base ───────────────────────────────────────────────────────────────── */
 html, body {
-  margin: 0;
-  padding: 0;
-  /* clip = no horizontal scrollbar, but unlike hidden it does NOT create a
-     new scroll container — so position:sticky children keep working */
-  overflow-x: clip;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-weight: var(--weight-regular);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-/* ── Hide scrollbar globally (all browsers) ── */
+/* ── Hide scrollbar (keep scrollability) ───────────────────────────────── */
 html {
-  scrollbar-width: none;          /* Firefox */
-  -ms-overflow-style: none;       /* IE / Edge (legacy) */
+  scrollbar-width: none;       /* Firefox */
+  -ms-overflow-style: none;   /* IE / Edge */
 }
 html::-webkit-scrollbar {
-  display: none;                  /* Chrome, Safari, Opera */
+  display: none;               /* Chrome / Safari / Opera */
 }
 
-/* Lenis requires html height to be auto (not 100%) */
-html.lenis,
-html.lenis body {
-  height: auto;
-}
+::selection { background: var(--adx-sage-a24); color: var(--adx-ink); }
+hr { border: 0; border-top: 1px solid var(--divider); margin: var(--s-8) 0; }
 
-/* ── Beach scroll card — responsive padding & radius ── */
-.beach-section {
-  padding-left: clamp(16px, 3vw, 40px);
-  padding-right: clamp(16px, 3vw, 40px);
-}
-.beach-card {
-  border-radius: 24px;
-}
-
-@media (max-width: 640px) {
-  .beach-section {
-    padding-left: 0;
-    padding-right: 0;
-  }
-  .beach-card {
-    border-radius: 0;
-  }
+/* ── Utility classes ────────────────────────────────────────────────────── */
+.adx-eyebrow {
+  font-family: var(--font-sans);
+  font-size: var(--size-caps);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--track-caps);
+  text-transform: uppercase;
+  color: var(--fg-faint);
 }

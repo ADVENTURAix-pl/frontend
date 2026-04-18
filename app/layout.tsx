@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import { LenisProvider } from "./providers/LenisProvider";
+import { LocaleProvider } from "./providers/LocaleProvider";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -19,10 +20,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geistSans.variable}`}>
+    <html lang="pl" className={`${geistSans.variable}`}>
       <body style={{ margin: 0, padding: 0 }}>
-        <LenisProvider>{children}</LenisProvider>
+        <LocaleProvider>
+          <LenisProvider>{children}</LenisProvider>
+        </LocaleProvider>
       </body>
     </html>
   );
 }
+

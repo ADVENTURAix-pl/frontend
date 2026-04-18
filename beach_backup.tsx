@@ -2,10 +2,9 @@
 
 import React, { useEffect, useRef } from "react";
 import { useLenis } from "../providers/LenisProvider";
-import { useLocale } from "../providers/LocaleProvider";
 
 const FRAME_COUNT = 150;
-const PX_PER_FRAME = 14; 
+const PX_PER_FRAME = 28;
 const NAVBAR_H = 72;
 
 function frameSrc(n: number) {
@@ -14,8 +13,6 @@ function frameSrc(n: number) {
 
 export function BeachScrollVideo() {
   const lenis = useLenis();
-  const { t } = useLocale();
-  
   const containerRef = useRef<HTMLDivElement>(null);
   const imgRef = useRef<HTMLImageElement>(null);
   const progressBarRef = useRef<HTMLDivElement>(null);
@@ -58,7 +55,7 @@ export function BeachScrollVideo() {
     if (progressBarRef.current) progressBarRef.current.style.width = `${pct}%`;
   }
 
-  // Scroll-driven frame updates — listen to both native scroll AND lenis for reliability
+  // Scroll-driven frame updates ΓÇö listen to both native scroll AND lenis for reliability
   useEffect(() => {
     const updateFrame = (scrollY: number) => {
       const container = containerRef.current;
@@ -67,10 +64,7 @@ export function BeachScrollVideo() {
       const absTop = container.getBoundingClientRect().top + scrollY;
       const scrollable = container.offsetHeight - window.innerHeight;
       if (scrollable <= 0) return;
-      
-      // Calculate progress based on scroll position relative to container
-      // using the same logic from your working commit
-      const progress = Math.max(0, Math.min(1, (scrollY - absTop + NAVBAR_H) / scrollable));
+      const progress = Math.max(0, Math.min(1, (scrollY - absTop) / scrollable));
       showFrame(Math.round(progress * (FRAME_COUNT - 1)));
     };
 
@@ -85,9 +79,6 @@ export function BeachScrollVideo() {
       lenis.on("scroll", lenisHandler);
       lenisOff = () => lenis.off("scroll", lenisHandler);
     }
-    
-    // Initial call
-    updateFrame(window.scrollY);
 
     return () => {
       window.removeEventListener("scroll", nativeHandler);
@@ -107,8 +98,6 @@ export function BeachScrollVideo() {
         position: "relative",
         background: "#F3F4F2",
         boxSizing: "border-box",
-        marginTop: 64, // maintain the margin fixes we added earlier
-        marginBottom: 64,
       }}
     >
       {/* Sticky toast-bread card */}
@@ -165,7 +154,7 @@ export function BeachScrollVideo() {
               fontWeight: 400,
             }}
           >
-            {t.beach.scroll}
+            Scroll to explore
           </span>
           <h2
             style={{
@@ -175,10 +164,11 @@ export function BeachScrollVideo() {
               letterSpacing: "-0.035em",
               lineHeight: 1.05,
               margin: 0,
-              whiteSpace: "pre-line",
             }}
           >
-            {t.beach.heading}
+            Where the journey
+            <br />
+            begins.
           </h2>
         </div>
 
@@ -203,6 +193,7 @@ export function BeachScrollVideo() {
             }}
           />
         </div>
+
       </div>
     </div>
   );

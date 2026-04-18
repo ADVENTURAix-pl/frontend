@@ -1,16 +1,13 @@
 "use client";
 
-import { AdventuraLogo } from "./AdventuraLogo";
+import React from "react";
+import { Logo, Eyebrow } from "./shared";
+import { useLocale } from "../providers/LocaleProvider";
 
-const LINKS = {
-  Explore: ["Destinations", "Experiences", "Travel Styles", "AI Planner"],
-  Company: ["About", "Careers", "Press", "Contact"],
-  Legal: ["Privacy", "Terms", "Cookie Policy"],
-};
-
-export const FOOTER_HEIGHT = 520;
+export const FOOTER_HEIGHT = 380;
 
 export function Footer() {
+  const { t } = useLocale();
   return (
     <footer
       style={{
@@ -20,135 +17,55 @@ export function Footer() {
         right: 0,
         height: FOOTER_HEIGHT,
         zIndex: 1,
-        background: "#565F59",
-        color: "#F3F4F2",
-        fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+        background: "var(--adx-paper-warm)",
+        fontFamily: "var(--font-sans)",
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        padding: "clamp(40px, 5vh, 60px) clamp(32px, 6vw, 80px) 32px",
+        padding: "clamp(36px, 5vh, 52px) clamp(32px, 6vw, 80px) 28px",
         boxSizing: "border-box",
       }}
     >
-      {/* Top row: brand + links */}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "flex-start",
-          gap: 48,
-          flexWrap: "wrap",
-        }}
-      >
-        {/* Brand */}
-        <div style={{ maxWidth: 300 }}>
-          <AdventuraLogo starSize={32} textSize={20} color="#F3F4F2" />
-          <p
-            style={{
-              marginTop: 16,
-              fontSize: "0.9375rem",
-              lineHeight: 1.65,
-              color: "rgba(243,244,242,0.6)",
-              fontWeight: 300,
-              margin: "16px 0 0",
-            }}
-          >
-            AI-powered travel experiences crafted for the curious explorer.
-            Every journey, reimagined.
+      {/* Top row */}
+      <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1fr", gap: 48 }}>
+        <div>
+          <Logo size={24} />
+          <p style={{ marginTop: 16, fontSize: 14, lineHeight: 1.65, color: "var(--fg-muted)", fontWeight: 300, maxWidth: 300 }}>
+            {t.footer.tagline}
           </p>
         </div>
-
-        {/* Link columns */}
-        <div
-          style={{
-            display: "flex",
-            gap: "clamp(32px, 5vw, 64px)",
-            flexWrap: "wrap",
-          }}
-        >
-          {Object.entries(LINKS).map(([group, items]) => (
-            <div key={group}>
-              <p
-                style={{
-                  margin: "0 0 16px",
-                  fontSize: "0.6875rem",
-                  letterSpacing: "0.14em",
-                  textTransform: "uppercase",
-                  color: "rgba(243,244,242,0.45)",
-                  fontWeight: 500,
-                }}
-              >
-                {group}
-              </p>
-              <ul
-                style={{
-                  listStyle: "none",
-                  margin: 0,
-                  padding: 0,
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 10,
-                }}
-              >
-                {items.map((item) => (
-                  <li key={item}>
-                    <a
-                      href="#"
-                      style={{
-                        color: "rgba(243,244,242,0.72)",
-                        textDecoration: "none",
-                        fontSize: "0.9375rem",
-                        fontWeight: 300,
-                        transition: "color 0.2s ease",
-                      }}
-                      onMouseEnter={(e) =>
-                        ((e.target as HTMLAnchorElement).style.color = "#F3F4F2")
-                      }
-                      onMouseLeave={(e) =>
-                        ((e.target as HTMLAnchorElement).style.color =
-                          "rgba(243,244,242,0.72)")
-                      }
-                    >
-                      {item}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
+        {t.footer.cols.map((col) => (
+          <div key={col.h}>
+            <Eyebrow>{col.h}</Eyebrow>
+            <ul style={{ listStyle: "none", padding: 0, margin: "14px 0 0", display: "flex", flexDirection: "column", gap: 8 }}>
+              {col.l.map((item) => (
+                <li key={item}>
+                  <a
+                    href="#"
+                    style={{ fontSize: 14, color: "var(--fg-muted)", textDecoration: "none", transition: "color 180ms var(--ease-out)" }}
+                    onMouseEnter={(e) => ((e.target as HTMLAnchorElement).style.color = "var(--fg)")}
+                    onMouseLeave={(e) => ((e.target as HTMLAnchorElement).style.color = "var(--fg-muted)")}
+                  >{item}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </div>
 
-      {/* Bottom row: copyright + tagline */}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          borderTop: "1px solid rgba(243,244,242,0.12)",
-          paddingTop: 24,
-          gap: 16,
-          flexWrap: "wrap",
-        }}
-      >
-        <span
-          style={{
-            fontSize: "0.8125rem",
-            color: "rgba(243,244,242,0.4)",
-            fontWeight: 300,
-          }}
-        >
-          © 2026 ADVENTURAix. All rights reserved.
-        </span>
-        <span
-          style={{
-            fontSize: "0.8125rem",
-            color: "rgba(243,244,242,0.4)",
-            fontWeight: 300,
-            letterSpacing: "0.06em",
-          }}
-        >
-          Adventure, reimagined.
+      {/* Bottom bar */}
+      <div style={{
+        borderTop: "1px solid var(--adx-sage-a12)",
+        paddingTop: 20,
+        display: "flex", justifyContent: "space-between", alignItems: "center",
+        flexWrap: "wrap", gap: 12,
+        fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--fg-faint)",
+      }}>
+        <span>{t.footer.copy}</span>
+        <span style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <span>{t.footer.tagline2}</span>
+          <Logo size={13} />
+          <span style={{ marginLeft: 6 }}>{t.footer.payments}</span>
         </span>
       </div>
     </footer>
