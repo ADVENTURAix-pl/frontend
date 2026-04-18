@@ -75,11 +75,11 @@ function TripCard({ trip, onOpen }: { trip: Trip; onOpen?: (t: Trip) => void }) 
           <Icon name="heart" size={14} color="var(--fg)" />
         </div>
       </div>
-      <div style={{ padding: "18px 20px 20px" }}>
+      <div className="p-4 md:p-5">
         <Eyebrow style={{ fontSize: 10 }}>{days} · {tag}</Eyebrow>
-        <h3 style={{ fontSize: 20, fontWeight: 500, letterSpacing: "-0.02em", color: "var(--fg)", margin: "6px 0 6px" }}>{name}</h3>
+        <h3 className="text-xl font-medium tracking-tight text-[var(--fg)] my-1.5">{name}</h3>
         <div style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--fg-faint)" }}>{sub}</div>
-        <div style={{ marginTop: 14, display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
+        <div className="mt-3.5 flex flex-wrap justify-between items-baseline gap-2">
           <div style={{ fontSize: 14, color: "var(--fg-muted)" }}>
             {t.trips.from} <span style={{ color: "var(--fg)", fontWeight: 500, fontSize: 18 }}>{trip.price} {t.trips.currency}</span>
           </div>
@@ -95,17 +95,17 @@ function TripCard({ trip, onOpen }: { trip: Trip; onOpen?: (t: Trip) => void }) 
 export function TripGrid({ onOpen }: { onOpen?: (t: Trip) => void }) {
   const { t } = useLocale();
   return (
-    <section style={{ padding: "96px 72px 48px" }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 40 }}>
+    <section className="px-6 md:px-[72px] pt-16 md:pt-[96px] pb-10 md:pb-[48px]">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 mb-8 md:mb-10">
         <div>
           <Eyebrow>{t.trips.eyebrow}</Eyebrow>
-          <h2 style={{ fontSize: 44, fontWeight: 300, letterSpacing: "-0.03em", color: "var(--fg)", margin: "8px 0 0", maxWidth: 560 }}>
+          <h2 className="text-3xl md:text-[44px] font-light tracking-[-0.03em] text-[var(--fg)] mt-2 max-w-[560px] leading-tight">
             {t.trips.heading}
           </h2>
         </div>
-        <Button variant="secondary">{t.trips.all}</Button>
+        <Button variant="secondary" className="w-full sm:w-auto">{t.trips.all}</Button>
       </div>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 24 }}>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {TRIPS.map((trip) => <TripCard key={trip.id} trip={trip} onOpen={onOpen} />)}
       </div>
     </section>

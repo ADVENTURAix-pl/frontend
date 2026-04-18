@@ -7,7 +7,7 @@ import { useLocale } from "../../providers/LocaleProvider";
 export function Manifesto() {
   const { t } = useLocale();
   return (
-    <section style={{ margin: "48px 24px", padding: "96px 72px", background: "var(--adx-ink)", color: "var(--adx-paper)", borderRadius: 24 }}>
+    <section className="mx-4 md:mx-6 my-8 md:my-12 px-6 md:px-[72px] py-16 md:py-[96px] bg-[var(--adx-ink)] text-[var(--adx-paper)] rounded-2xl md:rounded-3xl">
       <Eyebrow style={{ color: "rgba(243,244,242,0.56)" }}>{t.manifesto.eyebrow}</Eyebrow>
 
       <p style={{
@@ -23,7 +23,7 @@ export function Manifesto() {
         {t.manifesto.quote}
       </p>
 
-      <div style={{ marginTop: 48, display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 48 }}>
+      <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
         {t.manifesto.pillars.map((b) => (
           <div key={b.key}>
             <Eyebrow style={{ color: "rgba(243,244,242,0.48)" }}>{b.key}</Eyebrow>

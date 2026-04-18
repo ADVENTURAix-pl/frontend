@@ -21,13 +21,9 @@ export function LessonReader({
   onBack: () => void;
 }) {
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "280px 1fr", minHeight: "90vh", paddingTop: 72 }}>
+    <div className="flex flex-col md:flex-row min-h-[90vh] pt-[72px]">
       {/* Sidebar */}
-      <aside style={{
-        background: "var(--adx-paper-warm)",
-        padding: "32px 24px",
-        borderRight: "1px solid var(--adx-sage-a12)",
-      }}>
+      <aside className="w-full md:w-[280px] shrink-0 bg-[var(--adx-paper-warm)] p-6 md:p-8 md:border-r border-[var(--adx-sage-a12)]">
         <button
           onClick={onBack}
           style={{ background: "none", border: "none", cursor: "pointer", fontSize: 12, color: "var(--fg-muted)", padding: 0, marginBottom: 24 }}
@@ -52,7 +48,7 @@ export function LessonReader({
       </aside>
 
       {/* Main content */}
-      <main style={{ padding: "48px 72px 96px", maxWidth: 780 }}>
+      <main className="flex-1 px-6 md:px-[72px] py-10 md:py-12 pb-16 md:pb-[96px] max-w-[780px]">
         <Eyebrow>Lekcja 01 · 22 min</Eyebrow>
         <h1 style={{ marginTop: 14, fontSize: 44, fontWeight: 300, letterSpacing: "-0.03em", color: "var(--fg)", lineHeight: 1.1 }}>
           Rytm dobowy w podróży.

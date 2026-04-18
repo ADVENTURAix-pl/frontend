@@ -4,30 +4,14 @@ import React from "react";
 import { Logo, Eyebrow } from "./shared";
 import { useLocale } from "../providers/LocaleProvider";
 
-export const FOOTER_HEIGHT = 380;
-
 export function Footer() {
   const { t } = useLocale();
   return (
     <footer
-      style={{
-        position: "fixed",
-        bottom: 0,
-        left: 0,
-        right: 0,
-        height: FOOTER_HEIGHT,
-        zIndex: 1,
-        background: "var(--adx-paper-warm)",
-        fontFamily: "var(--font-sans)",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between",
-        padding: "clamp(36px, 5vh, 52px) clamp(32px, 6vw, 80px) 28px",
-        boxSizing: "border-box",
-      }}
+      className="static lg:fixed bottom-0 left-0 right-0 z-0 bg-[var(--adx-paper-warm)] font-sans flex flex-col justify-between p-8 md:p-10 lg:px-[80px] lg:pt-[52px] lg:pb-[28px] box-border lg:h-[380px]"
     >
       {/* Top row */}
-      <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1fr", gap: 48 }}>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 w-full">
         <div>
           <Logo size={24} />
           <p style={{ marginTop: 16, fontSize: 14, lineHeight: 1.65, color: "var(--fg-muted)", fontWeight: 300, maxWidth: 300 }}>
@@ -54,13 +38,7 @@ export function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div style={{
-        borderTop: "1px solid var(--adx-sage-a12)",
-        paddingTop: 20,
-        display: "flex", justifyContent: "space-between", alignItems: "center",
-        flexWrap: "wrap", gap: 12,
-        fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--fg-faint)",
-      }}>
+      <div className="mt-12 lg:mt-0 pt-5 border-t border-[var(--adx-sage-a12)] flex flex-col md:flex-row justify-between items-start md:items-center flex-wrap gap-3 font-mono text-[11px] text-[var(--fg-faint)]">
         <span>{t.footer.copy}</span>
         <span style={{ display: "flex", alignItems: "center", gap: 10 }}>
           <span>{t.footer.tagline2}</span>

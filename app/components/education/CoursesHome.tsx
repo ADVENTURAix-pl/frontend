@@ -48,9 +48,9 @@ export function CoursesHome({ onOpen }: { onOpen?: (c: Course) => void }) {
   const [active, setActive] = React.useState("Wszystkie");
 
   return (
-    <div style={{ padding: "96px 72px 96px" }}>
+    <div className="px-6 md:px-[72px] py-16 md:py-[96px]">
       {/* Header */}
-      <section style={{ paddingBottom: 48 }}>
+      <section className="pb-8 md:pb-12">
         <Eyebrow>Adventuraix · Edukacja</Eyebrow>
         <h1 style={{
           fontSize: "clamp(3rem, 6vw, 5rem)", fontWeight: 300,
@@ -66,7 +66,7 @@ export function CoursesHome({ onOpen }: { onOpen?: (c: Course) => void }) {
       </section>
 
       {/* Filter pills */}
-      <div style={{ display: "flex", gap: 10, marginBottom: 32 }}>
+      <div className="flex flex-wrap gap-2 md:gap-2.5 mb-8">
         {FILTERS.map((f) => (
           <button
             key={f}
@@ -84,10 +84,10 @@ export function CoursesHome({ onOpen }: { onOpen?: (c: Course) => void }) {
       </div>
 
       {/* Course grid */}
-      <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr", gap: 20 }}>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
         {COURSES.map((c, i) => (
-          <Card key={c.id} onClick={() => onOpen?.(c)} style={{ gridColumn: i === 0 ? "span 2" : "auto" }}>
-            <div style={{ aspectRatio: i === 0 ? "16/7" : "4/3", position: "relative", overflow: "hidden" }}>
+          <Card key={c.id} onClick={() => onOpen?.(c)} className={i === 0 ? "md:col-span-2" : "col-span-1"}>
+            <div style={{ position: "relative", overflow: "hidden" }} className={i === 0 ? "aspect-video" : "aspect-[4/3] md:aspect-square lg:aspect-[4/3]"}>
               <img src={c.img} alt={c.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
               <div style={{ position: "absolute", top: 14, left: 14 }}>
                 <Badge variant="glass">{c.tag}</Badge>

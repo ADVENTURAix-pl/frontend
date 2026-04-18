@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { LogoIntro } from "./components/LogoIntro";
-import { Footer, FOOTER_HEIGHT } from "./components/Footer";
+import { Footer } from "./components/Footer";
 import { SiteNav } from "./components/SiteNav";
 import { BeachScrollVideo } from "./components/BeachScrollVideo";
 import { useLocale } from "./providers/LocaleProvider";
@@ -72,13 +72,9 @@ export default function Home() {
 
       {/* Main content */}
       <main
+        className="relative z-10 bg-[#F3F4F2] transition-opacity duration-800 mb-0 lg:mb-[380px]"
         style={{
-          position: "relative",
-          zIndex: 10,
-          background: BG,
-          marginBottom: FOOTER_HEIGHT,
           opacity: introComplete ? 1 : 0,
-          transition: "opacity 0.8s ease-out",
         }}
       >
         {/* ─── DISCOVER ───────────────────────────────────────────────────── */}
@@ -89,11 +85,11 @@ export default function Home() {
             <BeachScrollVideo />
 
             {/* Features strip */}
-            <section style={{ background: BG, padding: "72px clamp(32px, 6vw, 80px)" }}>
+            <section className="px-6 md:px-[72px] py-16 md:py-[72px]" style={{ background: BG }}>
               <p style={{ fontSize: "0.75rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(86,95,89,0.45)", margin: "0 0 48px", fontWeight: 500 }}>
                 {t.why.label}
               </p>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 48 }}>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
                 {t.why.features.map(({ title, body }) => (
                   <div key={title}>
                     <h3 style={{ fontSize: "1.25rem", fontWeight: 300, letterSpacing: "-0.02em", color: BRAND_COLOR, margin: "0 0 12px" }}>{title}</h3>
@@ -108,7 +104,7 @@ export default function Home() {
             <Partners />
 
             {/* CTA */}
-            <section style={{ background: BRAND_COLOR, padding: "80px clamp(32px, 6vw, 80px)", textAlign: "center" }}>
+            <section className="px-6 md:px-[72px] py-[80px] text-center" style={{ background: BRAND_COLOR }}>
               <h2 style={{ fontSize: "clamp(2rem, 5vw, 4rem)", fontWeight: 200, letterSpacing: "-0.03em", color: "#F3F4F2", margin: "0 0 24px", lineHeight: 1.1 }}>
                 {t.cta.heading}
               </h2>
@@ -152,7 +148,7 @@ export default function Home() {
 
         {/* ─── ABOUT ──────────────────────────────────────────────────────── */}
         {activeTab === "about" && (
-          <div style={{ padding: "120px 72px 96px" }}>
+          <div className="px-6 md:px-[72px] pt-[120px] pb-[96px]">
             <span className="adx-eyebrow">{t.about.eyebrow}</span>
             <h1 style={{ fontSize: "clamp(2.5rem, 5vw, 4rem)", fontWeight: 300, letterSpacing: "-0.03em", color: "var(--fg)", marginTop: 16, maxWidth: 720, lineHeight: 1.1 }}>
               {t.about.heading}
@@ -163,7 +159,7 @@ export default function Home() {
             <p style={{ fontSize: 17, lineHeight: 1.7, color: "var(--fg-muted)", maxWidth: 620 }}>
               {t.about.body}
             </p>
-            <div style={{ marginTop: 64, display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 32 }}>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
               {t.about.stats.map((s) => (
                 <div key={s.label} style={{ borderTop: "1px solid var(--divider)", paddingTop: 24 }}>
                   <div style={{ fontSize: 48, fontWeight: 300, letterSpacing: "-0.03em", color: "var(--fg)" }}>{s.value}</div>

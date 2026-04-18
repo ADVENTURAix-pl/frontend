@@ -16,7 +16,7 @@ export function Checkout({
   const [step, setStep] = useState(1);
 
   return (
-    <div style={{ padding: "32px 72px 96px", maxWidth: 1200, margin: "0 auto", paddingTop: 96 }}>
+    <div className="px-6 md:px-[72px] pt-16 md:pt-[120px] pb-24 max-w-[1200px] mx-auto">
       <button
         onClick={onBack}
         style={{ background: "none", border: "none", cursor: "pointer", fontSize: 13, color: "var(--fg-muted)", padding: 0, marginBottom: 24 }}
@@ -34,7 +34,7 @@ export function Checkout({
         ))}
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 360px", gap: 40, marginTop: 32 }}>
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-8 lg:gap-10 mt-8">
         {/* Main card */}
         <Card style={{ padding: 32 }}>
           {step === 1 && (
@@ -52,7 +52,7 @@ export function Checkout({
           {step === 2 && (
             <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
               <Eyebrow>Metoda płatności</Eyebrow>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {["Apple Pay", "Visa / Mastercard", "Przelew · BLIK", "ADX Credit"].map((m, i) => (
                   <div key={m} style={{
                     padding: "16px 18px",
@@ -65,7 +65,7 @@ export function Checkout({
                 ))}
               </div>
               <Field label="Numer karty"><Input placeholder="4111 1111 1111 1111" /></Field>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <Field label="Ważność"><Input placeholder="04 / 28" /></Field>
                 <Field label="CVC"><Input placeholder="•••" /></Field>
               </div>

@@ -23,13 +23,13 @@ export function CourseDetail({
   onStart?: (lesson: { n: string }) => void;
 }) {
   return (
-    <div style={{ padding: "24px 72px 96px", paddingTop: 96 }}>
+    <div className="px-6 md:px-[72px] pt-[96px] md:pt-[120px] pb-16 md:pb-[96px]">
       <button
         onClick={onBack}
         style={{ background: "none", border: "none", cursor: "pointer", fontSize: 13, color: "var(--fg-muted)", padding: 0, marginBottom: 16 }}
       >← wróć do kursów</button>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1.4fr 1fr", gap: 48, alignItems: "start" }}>
+      <div className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-8 lg:gap-12 items-start mt-4">
         {/* Left */}
         <div>
           <Badge variant="outline">{course.tag}</Badge>
@@ -76,7 +76,7 @@ export function CourseDetail({
         </div>
 
         {/* Sticky sidebar */}
-        <aside style={{ position: "sticky", top: 96 }}>
+        <aside className="sticky top-20 md:top-24 mt-8 lg:mt-0">
           <Card style={{ overflow: "hidden" }}>
             <img src={course.img} alt={course.title} style={{ width: "100%", aspectRatio: "4/3", objectFit: "cover" }} />
             <div style={{ padding: 24 }}>

@@ -48,11 +48,13 @@ export const Logo = ({
 export const Eyebrow = ({
   children,
   style,
+  className,
 }: {
   children: React.ReactNode;
   style?: React.CSSProperties;
+  className?: string;
 }) => (
-  <span className="adx-eyebrow" style={style}>{children}</span>
+  <span className={`adx-eyebrow ${className || ""}`} style={style}>{children}</span>
 );
 
 // ── Button ──────────────────────────────────────────────────────────────────
@@ -65,6 +67,7 @@ export const Button = ({
   children,
   onClick,
   style,
+  className,
   disabled,
 }: {
   variant?: ButtonVariant;
@@ -72,6 +75,7 @@ export const Button = ({
   children: React.ReactNode;
   onClick?: () => void;
   style?: React.CSSProperties;
+  className?: string;
   disabled?: boolean;
 }) => {
   const [hover, setHover] = useState(false);
@@ -109,6 +113,7 @@ export const Button = ({
   };
   return (
     <button
+      className={className}
       onClick={onClick}
       disabled={disabled}
       onMouseEnter={() => setHover(true)}
@@ -136,10 +141,12 @@ export const Badge = ({
   variant = "outline",
   children,
   style,
+  className,
 }: {
   variant?: BadgeVariant;
   children: React.ReactNode;
   style?: React.CSSProperties;
+  className?: string;
 }) => {
   const variants: Record<BadgeVariant, React.CSSProperties> = {
     outline: { background: "transparent", color: "var(--fg)", border: "1px solid var(--adx-sage-a24)" },
@@ -150,7 +157,7 @@ export const Badge = ({
     glass:   { background: "rgba(243,244,242,0.88)", color: "var(--fg)", border: "none", backdropFilter: "blur(8px)" },
   };
   return (
-    <span style={{
+    <span className={className} style={{
       fontFamily: "var(--font-sans)",
       fontSize: 11,
       fontWeight: 500,
@@ -168,19 +175,21 @@ export const Badge = ({
   );
 };
 
-// ── Card ────────────────────────────────────────────────────────────────────
 export const Card = ({
   children,
   style,
+  className,
   onClick,
 }: {
   children: React.ReactNode;
   style?: React.CSSProperties;
+  className?: string;
   onClick?: () => void;
 }) => {
   const [hover, setHover] = useState(false);
   return (
     <div
+      className={className}
       onClick={onClick}
       onMouseEnter={() => onClick ? setHover(true) : undefined}
       onMouseLeave={() => setHover(false)}
@@ -261,12 +270,14 @@ export const Field = ({
   label,
   hint,
   children,
+  className,
 }: {
   label?: string;
   hint?: string;
   children: React.ReactNode;
+  className?: string;
 }) => (
-  <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+  <div className={className} style={{ display: "flex", flexDirection: "column", gap: 6 }}>
     {label && (
       <label style={{
         fontFamily: "var(--font-sans)", fontSize: 11, fontWeight: 500,
@@ -280,23 +291,25 @@ export const Field = ({
   </div>
 );
 
-// ── Input ───────────────────────────────────────────────────────────────────
 export const Input = ({
   placeholder,
   value,
   onChange,
   style,
+  className,
   type = "text",
 }: {
   placeholder?: string;
   value?: string;
   onChange?: (v: string) => void;
   style?: React.CSSProperties;
+  className?: string;
   type?: string;
 }) => {
   const [focus, setFocus] = useState(false);
   return (
     <input
+      className={className}
       type={type}
       placeholder={placeholder}
       value={value ?? ""}

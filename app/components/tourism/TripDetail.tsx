@@ -22,10 +22,10 @@ export function TripDetail({
   onBook: (trip: Trip) => void;
 }) {
   return (
-    <div style={{ padding: "0 0 48px" }}>
+    <div className="pb-12">
       {/* Hero image */}
-      <div style={{ position: "relative", height: 520, margin: "0 24px", borderRadius: 24, overflow: "hidden", marginTop: 80 }}>
-        <img src={trip.img} alt={trip.name} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
+      <div className="relative h-[400px] md:h-[520px] mx-4 md:mx-6 mt-20 md:mt-24 rounded-2xl overflow-hidden">
+        <img src={trip.img} alt={trip.name} className="absolute inset-0 w-full h-full object-cover" />
         <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(31,36,33,0) 50%, rgba(31,36,33,0.7) 100%)" }} />
         <button
           onClick={onBack}
@@ -49,7 +49,7 @@ export function TripDetail({
       </div>
 
       {/* Content grid */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 380px", gap: 48, padding: "48px 72px 0" }}>
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-8 lg:gap-12 px-6 md:px-[72px] pt-8 md:pt-12">
         {/* Left column */}
         <div>
           <Eyebrow>Dlaczego ta trasa</Eyebrow>
