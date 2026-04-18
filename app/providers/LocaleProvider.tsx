@@ -7,7 +7,7 @@ export type Locale = "pl" | "en";
 export const translations = {
   pl: {
     nav: {
-      discover: "Podróże", education: "Edukacja", club: "Klub", about: "O nas", plan: "Zaplanuj",
+      discover: "Podróże", education: "Edukacja", club: "Klub", about: "O nas", plan: "Zaplanuj", language: "Język",
     },
     hero: {
       badge: "Jakość ponad ilość",
@@ -102,7 +102,7 @@ export const translations = {
   },
   en: {
     nav: {
-      discover: "Trips", education: "Education", club: "Club", about: "About", plan: "Plan a trip",
+      discover: "Trips", education: "Education", club: "Club", about: "About", plan: "Plan a trip", language: "Language",
     },
     hero: {
       badge: "Quality over quantity",
@@ -198,7 +198,7 @@ export const translations = {
 } as const;
 
 export type T = {
-  nav: { discover: string; education: string; club: string; about: string; plan: string };
+  nav: { discover: string; education: string; club: string; about: string; plan: string; language: string };
   hero: { badge: string; heading: string; subheading: string; body: string; cta_plan: string; cta_how: string };
   search: { dest_label: string; dest_placeholder: string; when_label: string; when_placeholder: string; pax_label: string; pax_placeholder: string; cta: string };
   beach: { scroll: string; heading: string };
