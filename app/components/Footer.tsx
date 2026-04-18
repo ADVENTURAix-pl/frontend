@@ -6,27 +6,44 @@ import { useLocale } from "../providers/LocaleProvider";
 
 export function Footer() {
   const { t } = useLocale();
+  const ref = React.useRef<HTMLElement>(null);
+
+  React.useEffect(() => {
+    if (!ref.current) return;
+    const update = () => {
+      document.body.style.setProperty("--footer-h", `${ref.current?.getBoundingClientRect().height}px`);
+    };
+    const observer = new ResizeObserver(update);
+    observer.observe(ref.current);
+    update(); // initial sync
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <footer
-      className="static lg:fixed bottom-0 left-0 right-0 z-0 bg-[var(--adx-paper-warm)] font-sans flex flex-col justify-between p-8 md:p-10 lg:px-[80px] lg:pt-[52px] lg:pb-[28px] box-border lg:h-[380px]"
+      ref={ref}
+      className="fixed bottom-0 left-0 right-0 z-0 bg-[var(--adx-paper-warm)] font-sans flex flex-col justify-between p-6 md:p-10 lg:px-[80px] lg:pt-[52px] lg:pb-[28px] box-border min-h-auto lg:min-h-[380px]"
     >
       {/* Top row */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 w-full">
-        <div>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-8 lg:gap-12 w-full">
+        {/* Brand Block */}
+        <div className="col-span-2 md:col-span-1">
           <Logo size={24} />
-          <p style={{ marginTop: 16, fontSize: 14, lineHeight: 1.65, color: "var(--fg-muted)", fontWeight: 300, maxWidth: 300 }}>
+          <p style={{ marginTop: 12, fontSize: 14, lineHeight: 1.6, color: "var(--fg-muted)", fontWeight: 300, maxWidth: 300 }}>
             {t.footer.tagline}
           </p>
         </div>
+        
+        {/* Link Columns */}
         {t.footer.cols.map((col) => (
-          <div key={col.h}>
+          <div key={col.h} className="col-span-1">
             <Eyebrow>{col.h}</Eyebrow>
             <ul style={{ listStyle: "none", padding: 0, margin: "14px 0 0", display: "flex", flexDirection: "column", gap: 8 }}>
               {col.l.map((item) => (
                 <li key={item}>
                   <a
                     href="#"
-                    style={{ fontSize: 14, color: "var(--fg-muted)", textDecoration: "none", transition: "color 180ms var(--ease-out)" }}
+                    style={{ fontSize: 13, color: "var(--fg-muted)", textDecoration: "none", transition: "color 180ms var(--ease-out)" }}
                     onMouseEnter={(e) => ((e.target as HTMLAnchorElement).style.color = "var(--fg)")}
                     onMouseLeave={(e) => ((e.target as HTMLAnchorElement).style.color = "var(--fg-muted)")}
                   >{item}</a>
