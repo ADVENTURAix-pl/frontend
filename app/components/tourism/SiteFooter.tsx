@@ -44,7 +44,7 @@ export function SiteFooter() {
         flexWrap: "wrap", gap: 12,
         fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--fg-faint)",
       }}>
-        <span>© 2026 ADVENTURAix. All rights reserved. · Adventuraix Sp. z o.o. · NIP: 123-456-78-90</span>
+        <span>© 2026 ADVENTURAix. All rights reserved. · Adventuraix Sp. z o.o.</span>
         <span style={{ display: "flex", alignItems: "center", gap: 12 }}>
           <span>Adventure, reimagined.</span>
           <Logo size={14} />
