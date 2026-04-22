@@ -25,6 +25,9 @@ import { LessonReader } from "./components/education/LessonReader";
 // Chat
 import { AIChatWidget } from "./components/AIChatWidget";
 
+// Cookie Consent
+import { CookieConsent } from "./components/CookieConsent";
+
 type Tab = "discover" | "education" | "club" | "about";
 type Screen =
   | { name: "home" }
@@ -69,10 +72,10 @@ export default function Home() {
 
       {/* Main content */}
       <main
-        className="relative z-10 bg-[#F3F4F2] transition-opacity duration-800"
+        className="relative z-10 bg-[#F3F4F2] transition-opacity duration-800 mb-0 md:mb-[var(--footer-h,380px)]"
         style={{
           opacity: introComplete ? 1 : 0,
-          marginBottom: "var(--footer-h, 380px)",
+          minHeight: "100vh",
         }}
       >
         {/* ─── DISCOVER ───────────────────────────────────────────────────── */}
@@ -80,7 +83,6 @@ export default function Home() {
           <>
             <Hero onPlan={() => goTrip(TRIPS[0])} />
             <SearchBar />
-            <BeachScrollVideo />
 
             {/* Features strip */}
             <section className="px-6 md:px-[72px] py-16 md:py-[72px]" style={{ background: BG }}>
@@ -117,6 +119,7 @@ export default function Home() {
               </button>
             </section>
 
+            <BeachScrollVideo />
           </>
         )}
 

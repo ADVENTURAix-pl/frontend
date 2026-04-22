@@ -15,8 +15,9 @@ function frameSrc(n: number) {
 export function BeachScrollVideo() {
   const lenis = useLenis();
   const { t } = useLocale();
-  
+
   const containerRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
   const imgRef = useRef<HTMLImageElement>(null);
   const progressBarRef = useRef<HTMLDivElement>(null);
   const currentIdxRef = useRef(0);
@@ -24,6 +25,12 @@ export function BeachScrollVideo() {
   const loadedRef = useRef<boolean[]>(
     Array.from({ length: FRAME_COUNT }, () => false)
   );
+
+  // Swipe / drag-to-scrub state
+  const isDraggingRef = useRef(false);
+  const startXRef = useRef(0);
+  const startProgressRef = useRef(0);
+  const swipeDistanceRef = useRef(300);
 
   // Preload all frames
   useEffect(() => {
@@ -98,6 +105,30 @@ export function BeachScrollVideo() {
   const sectionH = `calc(100vh + ${FRAME_COUNT * PX_PER_FRAME}px)`;
   const cardH = `calc(100vh - ${NAVBAR_H}px)`;
 
+  function handlePointerDown(e: React.PointerEvent<HTMLDivElement>) {
+    isDraggingRef.current = true;
+    startXRef.current = e.clientX;
+    startProgressRef.current = currentIdxRef.current / (FRAME_COUNT - 1);
+    swipeDistanceRef.current = Math.max(200, window.innerWidth * 0.5);
+    (e.currentTarget as HTMLDivElement).setPointerCapture(e.pointerId);
+    if (cardRef.current) cardRef.current.style.cursor = "grabbing";
+  }
+
+  function handlePointerMove(e: React.PointerEvent<HTMLDivElement>) {
+    if (!isDraggingRef.current) return;
+    const dx = e.clientX - startXRef.current;
+    let p = startProgressRef.current + dx / swipeDistanceRef.current;
+    p = Math.max(0, Math.min(1, p));
+    showFrame(Math.round(p * (FRAME_COUNT - 1)));
+  }
+
+  function handlePointerUp(e: React.PointerEvent<HTMLDivElement>) {
+    if (!isDraggingRef.current) return;
+    isDraggingRef.current = false;
+    (e.currentTarget as HTMLDivElement).releasePointerCapture?.(e.pointerId);
+    if (cardRef.current) cardRef.current.style.cursor = "grab";
+  }
+
   return (
     <div
       ref={containerRef}
@@ -107,12 +138,13 @@ export function BeachScrollVideo() {
         position: "relative",
         background: "#F3F4F2",
         boxSizing: "border-box",
-        marginTop: 64, // maintain the margin fixes we added earlier
+        marginTop: 64,
         marginBottom: 64,
       }}
     >
       {/* Sticky toast-bread card */}
       <div
+        ref={cardRef}
         className="beach-card"
         style={{
           position: "sticky",
@@ -121,7 +153,14 @@ export function BeachScrollVideo() {
           overflow: "hidden",
           boxShadow: "0 12px 60px rgba(0,0,0,0.22), 0 2px 8px rgba(0,0,0,0.12)",
           willChange: "transform",
+          touchAction: "none",
+          userSelect: "none",
+          cursor: "grab",
         }}
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+        onPointerUp={handlePointerUp}
+        onPointerLeave={handlePointerUp}
       >
         {/* Beach frame */}
         <img

@@ -22,7 +22,7 @@ export function Footer() {
   return (
     <footer
       ref={ref}
-      className="fixed bottom-0 left-0 right-0 z-0 bg-[var(--adx-paper-warm)] font-sans flex flex-col justify-between p-6 md:p-10 lg:px-[80px] lg:pt-[52px] lg:pb-[28px] box-border min-h-auto lg:min-h-[380px]"
+      className="relative md:fixed md:bottom-0 md:left-0 md:right-0 md:z-0 bg-[var(--adx-paper-warm)] font-sans flex flex-col justify-between p-6 md:p-10 lg:px-[80px] lg:pt-[52px] lg:pb-[28px] box-border lg:min-h-[380px]"
     >
       {/* Top row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-8 lg:gap-12 w-full">
