@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import { LogoIntro } from "./components/LogoIntro";
 import { Footer } from "./components/Footer";
 import { SiteNav } from "./components/SiteNav";
-import { BeachScrollVideo } from "./components/BeachScrollVideo";
 import { useLocale } from "./providers/LocaleProvider";
 
 // Tourism
@@ -120,7 +119,6 @@ export default function Home() {
               </button>
             </section>
 
-            <BeachScrollVideo />
           </>
         )}
 
