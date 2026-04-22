@@ -5,8 +5,7 @@ import { useLenis } from "../providers/LenisProvider";
 import { useLocale } from "../providers/LocaleProvider";
 
 const FRAME_COUNT = 150;
-const PX_PER_FRAME = 14; 
-const NAVBAR_H = 72;
+const PX_PER_FRAME = 14;
 
 function frameSrc(n: number) {
   return `/Beach-frames/ezgif-frame-${String(n).padStart(3, "0")}.jpg`;
@@ -74,10 +73,9 @@ export function BeachScrollVideo() {
       const absTop = container.getBoundingClientRect().top + scrollY;
       const scrollable = container.offsetHeight - window.innerHeight;
       if (scrollable <= 0) return;
-      
+
       // Calculate progress based on scroll position relative to container
-      // using the same logic from your working commit
-      const progress = Math.max(0, Math.min(1, (scrollY - absTop + NAVBAR_H) / scrollable));
+      const progress = Math.max(0, Math.min(1, (scrollY - absTop) / scrollable));
       showFrame(Math.round(progress * (FRAME_COUNT - 1)));
     };
 
@@ -102,8 +100,7 @@ export function BeachScrollVideo() {
     };
   }, [lenis]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const sectionH = `calc(100vh + ${FRAME_COUNT * PX_PER_FRAME}px)`;
-  const cardH = `calc(100vh - ${NAVBAR_H}px)`;
+  const sectionH = `calc(100dvh + ${FRAME_COUNT * PX_PER_FRAME}px)`;
 
   function handlePointerDown(e: React.PointerEvent<HTMLDivElement>) {
     isDraggingRef.current = true;
@@ -148,8 +145,8 @@ export function BeachScrollVideo() {
         className="beach-card"
         style={{
           position: "sticky",
-          top: NAVBAR_H,
-          height: cardH,
+          top: 0,
+          height: "100dvh",
           overflow: "hidden",
           boxShadow: "0 12px 60px rgba(0,0,0,0.22), 0 2px 8px rgba(0,0,0,0.12)",
           willChange: "transform",

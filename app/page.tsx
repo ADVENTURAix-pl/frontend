@@ -72,9 +72,10 @@ export default function Home() {
 
       {/* Main content */}
       <main
-        className="relative z-10 bg-[#F3F4F2] transition-opacity duration-800 mb-0 md:mb-[var(--footer-h,380px)]"
+        className="relative z-10 bg-[#F3F4F2] transition-opacity duration-800"
         style={{
           opacity: introComplete ? 1 : 0,
+          marginBottom: "var(--footer-h, 380px)",
           minHeight: "100vh",
         }}
       >
